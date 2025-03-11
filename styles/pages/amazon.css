@@ -154,3 +154,12 @@
   padding: 8px;
   border-radius: 50px;
 }
+.js-after-added{
+  color: rgb(6, 125, 98);
+  font-size: 16px;
+
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+  opacity: 1;
+}
