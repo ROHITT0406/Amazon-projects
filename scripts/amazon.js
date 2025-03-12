@@ -1,5 +1,5 @@
 import {cart} from '../data/cart.js';
-
+import { products } from '../data/products.js';
 let productsHTML = '';
 products.forEach((product)=>{
     productsHTML += `  
@@ -55,7 +55,7 @@ products.forEach((product)=>{
 
 document.querySelector('.js-products-grid').innerHTML = productsHTML;
 
-const addedMessageTimeouts = new Map();
+const addedMessageTimeouts = new Map();//hold a key value pair
 document.querySelectorAll('.js-add-to-cart').forEach((button)=>{
     
     button.addEventListener('click',()=>{
