@@ -66,7 +66,7 @@ function addedMessage(productId){
         if (addedMessageTimeouts.has(productId)) {
             clearTimeout(addedMessageTimeouts.get(productId));
           }
-      const timeoutId=setTimeout(() => {
+        const timeoutId=setTimeout(() => {
         addedMessage.classList.remove('js-after-added');
         addedMessageTimeouts.delete(productId);
 
