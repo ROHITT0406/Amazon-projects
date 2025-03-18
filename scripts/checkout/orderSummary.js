@@ -11,12 +11,12 @@ export function renderOrderSummary(){
     cart.forEach((cartItem)=>{
         const productId = cartItem.productId;
         const matchingProduct=getProduct(productId);
-        const deliveryOptionId=cartItem.deliveryOptionID;
+        const deliveryOptionId=cartItem.deliveryOptionID; 
         const deliveryOption=getDeliveryOption(deliveryOptionId);
         const today = dayjs();
         const deliveryDate = today.add(
         deliveryOption.deliveryDays,'days'
-      );
+      ); 
       const dateString = deliveryDate.format(
         'dddd , MMMM D'
       );
@@ -134,7 +134,7 @@ export function renderOrderSummary(){
             const newQuantity = Number(inputValue.value);
         
           
-            if (newQuantity > 0 && newQuantity < 1000) {
+            if (newQuantity >= 0 && newQuantity < 1000) {
               updateQuantity(productId, newQuantity);
               container.classList.remove('is-editing-quantity');
         
@@ -163,4 +163,14 @@ export function renderOrderSummary(){
     });
 
 }
-
+/*
+const today = dayjs();
+const deliverydate=today.add(10,'days');
+const dateString = deliverydate.format('dddd');
+function isweekend(dateString){
+  if (dateString === 'Saturday' || dateString === 'Sunday'){
+    return true;
+  }
+  return false;
+}
+console.log(isweekend(dateString));*/
