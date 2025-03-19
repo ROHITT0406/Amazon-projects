@@ -31,7 +31,7 @@ describe('test suite: renderOrderSummary',()=>{
   });
   afterEach(()=>{
     document.querySelector('.js-test-container').innerHTML ='';
-  })
+  });
 
 
     it('displays the cart',()=>{
