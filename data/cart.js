@@ -92,3 +92,7 @@ export function loadCart(fun){//callback
   xhr.send();
 }
 
+export function clearCart(){
+    cart.length =0;
+    saveToStorage();
+}

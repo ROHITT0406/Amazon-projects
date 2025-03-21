@@ -5,7 +5,7 @@ import dayjs from 'https://unpkg.com/dayjs@1.11.10/esm/index.js';
 import {deliveryOptions,getDeliveryOption} from '../../data/deliveryOption.js';
 import { renderPaymentSummary } from './paymentSummary.js';
 export function renderOrderSummary(){
- /*
+
   if (!cart || cart.length === 0) {
     const orderSummaryContainer = document.querySelector('.js-order-summary');
 
@@ -19,7 +19,7 @@ export function renderOrderSummary(){
     });
     return;
   }
-}*/
+}
     let cartSummaryHTML='';
     cart.forEach((cartItem)=>{
         const productId = cartItem.productId;

@@ -1,5 +1,6 @@
 import { formatCurrency } from '../scripts/utils/money.js';
 import { getProduct, loadProductsFetch } from '../../data/products.js';
+import {updatecart} from './cart.js';
 
 export const orders = JSON.parse(localStorage.getItem('orders')) || [];
 
@@ -19,10 +20,27 @@ function dateformat(date) {
 }
 
 loadProductsFetch().then(() => {
+  const cartquantity = updatecart();
+  const cartvalue=document.querySelector('.js-cart-quantity');
+  cartvalue.innerHTML=cartquantity;
   console.log('Products loaded, now rendering orders');
 
   let orderHTML = '';
-
+  
+    if (!orders || orders.length === 0) {
+      const orderSummaryContainer = document.querySelector('.js-order-grid');
+  
+      orderSummaryContainer.innerHTML = `<p>Your cart is empty</p> 
+      <button class="view-button button-primary js-view-product">View products</button>`; 
+    const viewProductButton = document.querySelector('.js-view-product');
+  
+    if (viewProductButton) {
+      viewProductButton.addEventListener('click', () => {
+        window.location.href = 'amazon.html';
+      });
+      return;
+    }
+  }
   orders.forEach((order) => {
     let productsHTML = '';
 
@@ -34,7 +52,6 @@ loadProductsFetch().then(() => {
           console.warn(`Product not found for ID: ${productItem.productId}`);
           return;
         }
-
         productsHTML += `
           <div class="order-details-grid">
             <div class="product-image-container">
@@ -44,7 +61,7 @@ loadProductsFetch().then(() => {
             <div class="product-details">
               <div class="product-name">${product.name}</div>
               <div class="product-delivery-date">
-                Arriving on: ${dateformat(order.orderTime)}
+                Arriving on: ${dateformat(productItem.estimatedDeliveryTime)}
               </div>
               <div class="product-quantity">Quantity: ${productItem.quantity}</div>
               <button class="buy-again-button button-primary">
@@ -89,8 +106,8 @@ loadProductsFetch().then(() => {
       </div>
     `;
   });
-  document.addEventListener('DOMContentLoaded', () => {
-    document.querySelector('.js-order-grid').innerHTML = orderHTML;
-  });
-  
+  document.querySelector('.js-order-grid').innerHTML = orderHTML;
 });
+ 
+
+

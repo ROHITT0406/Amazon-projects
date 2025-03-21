@@ -1,9 +1,10 @@
-import {cart} from '../../data/cart.js';
+import {cart,clearCart} from '../../data/cart.js';
 import {getProduct} from '../../data/products.js';
 import { getDeliveryOption } from '../../data/deliveryOption.js';
 import rendercheckoutHeader from './checkoutHeader.js';
 import { addOrder, orders } from '../../data/order.js';
 import  formatCurrency  from '..//utils/money.js';
+
 export function renderPaymentSummary(){
     let productPriceCents = 0;
     let shippingPriceCents=0;
@@ -54,7 +55,15 @@ export function renderPaymentSummary(){
     `;
     document.querySelector('.js-payment-summary').innerHTML = paymentSummaryHTML;
     rendercheckoutHeader();
-    document.querySelector('.js-place-order').addEventListener('click',async ()=>{
+    const placeorderbutton = document.querySelector('.js-place-order');
+    if (!cart || cart.length === 0){
+     
+      placeorderbutton.disabled=true;
+      placeorderbutton.classList.add('disabled-button');
+      return;
+    }
+    
+   placeorderbutton.addEventListener('click',async ()=>{ placeorderbutton.disabled = true;
       try{
         const response = await fetch('https://supersimplebackend.dev/orders',{
           method:'POST',
@@ -68,9 +77,11 @@ export function renderPaymentSummary(){
   
         const order = await response.json();
         addOrder(order);
+        clearCart();
       }catch(error){
         console.log('Unexpected error.Try again later.');
       }
     window.location.href= 'orders.html';
+ 
     });
 }

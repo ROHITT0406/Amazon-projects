@@ -218,3 +218,15 @@
     padding: 12px;
   }
 }
+.view-button {
+  width: 200.65px;
+  padding-top: 12px;
+  padding-bottom: 12px;
+  border-radius: 8px;
+
+  margin-top: 11px;
+  margin-bottom: 15px;
+  font-size: 20px;
+
+}
+

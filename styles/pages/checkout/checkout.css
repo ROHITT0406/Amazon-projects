@@ -241,3 +241,8 @@
   font-size: 20px;
 
 }
+.disabled-button {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+}
