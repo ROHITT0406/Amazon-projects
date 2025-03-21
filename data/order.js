@@ -1,8 +1,6 @@
 import { formatCurrency } from '../scripts/utils/money.js';
 import { getProduct, loadProductsFetch } from '../../data/products.js';
-import {updatecart,addToCart,cart} from './cart.js';
-import { renderOrderSummary } from '../scripts/checkout/orderSummary.js';
-import { renderPaymentSummary } from '../scripts/checkout/paymentSummary.js';
+import {updatecart,addToCart} from './cart.js';
 
 export const orders = JSON.parse(localStorage.getItem('orders')) || [];
 
@@ -15,13 +13,25 @@ function saveToStorage() {
   localStorage.setItem('orders', JSON.stringify(orders));
 }
 
+
+export function getOrder(orderId) {
+  let matchingOrder;
+
+  orders.forEach((order) => {
+    if (order.id === orderId) {
+      matchingOrder = order;
+    }
+  });
+
+  return matchingOrder;
+}
 function dateformat(date) {
   const orderTime = new Date(date);
   const options = { month: 'long', day: 'numeric' };
   return orderTime.toLocaleDateString('en-US', options);
 }
-
-loadProductsFetch().then(() => {
+async function loadpage(){
+  await loadProductsFetch();
   const cartquantity = updatecart();
   const cartvalue=document.querySelector('.js-cart-quantity');
   if(cartvalue){
@@ -67,7 +77,7 @@ loadProductsFetch().then(() => {
                 Arriving on: ${dateformat(productItem.estimatedDeliveryTime)}
               </div>
               <div class="product-quantity">Quantity: ${productItem.quantity}</div>
-              <button class="buy-again-button button-primary js-buy-button" data-product-id="${product.id}">
+              <button class="buy-again-button button-primary js-buy-again" data-product-id="${product.id}">
                 <img class="buy-again-icon" src="images/icons/buy-again.png">
                 <span class="buy-again-message">Buy it again</span>
               </button>
@@ -109,9 +119,22 @@ loadProductsFetch().then(() => {
       </div>
     `;
   });
-  document.addEventListener('DOMContentLoaded', () => {
-    document.querySelector('.js-order-grid').innerHTML=orderHTML;
-  
-});
-});
 
+    document.querySelector('.js-order-grid').innerHTML=orderHTML;
+   
+
+document.querySelectorAll('.js-buy-again').forEach((button) => {
+  button.addEventListener('click', () => {
+    addToCart(button.dataset.productId,1);
+
+    button.innerHTML = 'Added';
+    setTimeout(() => {
+      button.innerHTML = `
+        <img class="buy-again-icon" src="images/icons/buy-again.png">
+        <span class="buy-again-message">Buy it again</span>
+      `;
+    }, 1000);
+  });
+});
+}
+loadpage();
