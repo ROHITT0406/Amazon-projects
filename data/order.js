@@ -1,6 +1,8 @@
 import { formatCurrency } from '../scripts/utils/money.js';
 import { getProduct, loadProductsFetch } from '../../data/products.js';
-import {updatecart} from './cart.js';
+import {updatecart,addToCart,cart} from './cart.js';
+import { renderOrderSummary } from '../scripts/checkout/orderSummary.js';
+import { renderPaymentSummary } from '../scripts/checkout/paymentSummary.js';
 
 export const orders = JSON.parse(localStorage.getItem('orders')) || [];
 
@@ -22,16 +24,17 @@ function dateformat(date) {
 loadProductsFetch().then(() => {
   const cartquantity = updatecart();
   const cartvalue=document.querySelector('.js-cart-quantity');
-  cartvalue.innerHTML=cartquantity;
+  if(cartvalue){
+  cartvalue.innerHTML=cartquantity;}
   console.log('Products loaded, now rendering orders');
 
   let orderHTML = '';
   
     if (!orders || orders.length === 0) {
       const orderSummaryContainer = document.querySelector('.js-order-grid');
-  
+  if (orderSummaryContainer){
       orderSummaryContainer.innerHTML = `<p>Your cart is empty</p> 
-      <button class="view-button button-primary js-view-product">View products</button>`; 
+      <button class="view-button button-primary js-view-product">View products</button>`; }
     const viewProductButton = document.querySelector('.js-view-product');
   
     if (viewProductButton) {
@@ -64,7 +67,7 @@ loadProductsFetch().then(() => {
                 Arriving on: ${dateformat(productItem.estimatedDeliveryTime)}
               </div>
               <div class="product-quantity">Quantity: ${productItem.quantity}</div>
-              <button class="buy-again-button button-primary">
+              <button class="buy-again-button button-primary js-buy-button" data-product-id="${product.id}">
                 <img class="buy-again-icon" src="images/icons/buy-again.png">
                 <span class="buy-again-message">Buy it again</span>
               </button>
@@ -72,7 +75,7 @@ loadProductsFetch().then(() => {
 
             <div class="product-actions">
               <a href="tracking.html?orderId=${order.id}&product=${product.id}">
-                <button class="track-package-button button-secondary">
+                <button class="track-package-button button-secondary js-track-package">
                   Track package
                 </button>
               </a>
@@ -106,8 +109,9 @@ loadProductsFetch().then(() => {
       </div>
     `;
   });
-  document.querySelector('.js-order-grid').innerHTML = orderHTML;
+  document.addEventListener('DOMContentLoaded', () => {
+    document.querySelector('.js-order-grid').innerHTML=orderHTML;
+  
 });
- 
-
+});
 
