@@ -120,7 +120,10 @@ async function loadpage(){
     `;
   });
 
-    document.querySelector('.js-order-grid').innerHTML=orderHTML;
+    const order=document.querySelector('.js-order-grid');
+    if (order){
+      order.innerHTML=orderHTML;
+    }
    
 
 document.querySelectorAll('.js-buy-again').forEach((button) => {
