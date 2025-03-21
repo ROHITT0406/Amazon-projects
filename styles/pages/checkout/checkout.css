@@ -229,3 +229,15 @@
 .is-editing-quantity .update-quantity-link {
   display: none;
 }
+
+.view-product-button {
+  width: 30%;
+  padding-top: 12px;
+  padding-bottom: 12px;
+  border-radius: 8px;
+
+  margin-top: 11px;
+  margin-bottom: 15px;
+  font-size: 20px;
+
+}

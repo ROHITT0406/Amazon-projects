@@ -4,9 +4,22 @@ import  formatCurrency  from '..//utils/money.js';
 import dayjs from 'https://unpkg.com/dayjs@1.11.10/esm/index.js';
 import {deliveryOptions,getDeliveryOption} from '../../data/deliveryOption.js';
 import { renderPaymentSummary } from './paymentSummary.js';
-
 export function renderOrderSummary(){
+ /*
+  if (!cart || cart.length === 0) {
+    const orderSummaryContainer = document.querySelector('.js-order-summary');
 
+    orderSummaryContainer.innerHTML = `<p>Your cart is empty</p> 
+    <button class="view-product-button button-primary js-view-product">View products</button>`; 
+  const viewProductButton = document.querySelector('.js-view-product');
+
+  if (viewProductButton) {
+    viewProductButton.addEventListener('click', () => {
+      window.location.href = 'amazon.html';
+    });
+    return;
+  }
+}*/
     let cartSummaryHTML='';
     cart.forEach((cartItem)=>{
         const productId = cartItem.productId;
@@ -64,7 +77,7 @@ export function renderOrderSummary(){
     });
 
     function deliveryOptionsHTML(matchingProduct,cartItem){
-      let html = ''
+      let html = '';
       deliveryOptions.forEach((deliveryOption)=>{
         const today = dayjs();
         const deliveryDate = today.add(
@@ -107,6 +120,7 @@ export function renderOrderSummary(){
             container.remove();
             checkoutquantity();
             renderPaymentSummary();
+            renderOrderSummary();
         });
     });
 
@@ -164,6 +178,9 @@ checkoutquantity();
     });
 
 }
+
+
+checkoutquantity();
 /*
 const today = dayjs();
 const deliverydate=today.add(10,'days');
