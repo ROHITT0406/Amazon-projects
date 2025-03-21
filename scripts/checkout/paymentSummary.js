@@ -2,7 +2,7 @@ import {cart,clearCart} from '../../data/cart.js';
 import {getProduct} from '../../data/products.js';
 import { getDeliveryOption } from '../../data/deliveryOption.js';
 import rendercheckoutHeader from './checkoutHeader.js';
-import { addOrder, orders } from '../../data/order.js';
+import { addOrder} from '../../data/order.js';
 import  formatCurrency  from '..//utils/money.js';
 
 export function renderPaymentSummary(){
@@ -77,10 +77,11 @@ export function renderPaymentSummary(){
   
         const order = await response.json();
         addOrder(order);
-        clearCart();
+      
       }catch(error){
         console.log('Unexpected error.Try again later.');
       }
+      clearCart();
     window.location.href= 'orders.html';
  
     });

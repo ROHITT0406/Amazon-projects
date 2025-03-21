@@ -10,11 +10,8 @@ function renderProductsGrid(){
         let productsHTML = '';
         const url = new URL(window.location.href);
         const search = url.searchParams.get('search');
-        console.log(search);
   let filteredProducts = products;
 
-  // If a search exists in the URL parameters,
-  // filter the products that match the search.
   if (search) {
     filteredProducts = products.filter((product) => {
         let matchingKeyword = false;

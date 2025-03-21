@@ -31,7 +31,6 @@ async function loadPage() {
   const orderTime = dayjs(order.orderTime);
   const deliveryTime=dayjs(productDetails.estimatedDeliveryTime);
   const percentProgress = ((today.diff(orderTime)) / (deliveryTime.diff(orderTime))) * 100;
-  console.log(percentProgress);
   const percent = Math.min(Math.max(percentProgress, 0), 100); 
   const deliveredMessage = today < deliveryTime ? 'Arriving on' : 'Delivered on';
   const trackingHTML = `

@@ -36,7 +36,7 @@ async function loadpage(){
   const cartvalue=document.querySelector('.js-cart-quantity');
   if(cartvalue){
   cartvalue.innerHTML=cartquantity;}
-  console.log('Products loaded, now rendering orders');
+  
 
   let orderHTML = '';
   
@@ -54,9 +54,10 @@ async function loadpage(){
       return;
     }
   }
+ 
   orders.forEach((order) => {
     let productsHTML = '';
-
+  
     if (Array.isArray(order.products)) {
       order.products.forEach((productItem) => {
         const product = getProduct(productItem.productId);
