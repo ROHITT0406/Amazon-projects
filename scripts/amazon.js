@@ -10,7 +10,7 @@ function renderProductsGrid(){
         let productsHTML = '';
         const url = new URL(window.location.href);
         const search = url.searchParams.get('search');
-  let filteredProducts = products;
+        let filteredProducts = products;
 
   if (search) {
     filteredProducts = products.filter((product) => {
