@@ -15,7 +15,7 @@ export function renderOrderSummary(){
 
   if (viewProductButton) {
     viewProductButton.addEventListener('click', () => {
-      window.location.href = 'amazon.html';
+      window.location.href = 'index.html';
     });
     return;
   }
